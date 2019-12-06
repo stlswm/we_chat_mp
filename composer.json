@@ -1,0 +1,34 @@
+{
+  "name": "stlswm/we-chat-mp",
+  "description": "WeChat Mini Program SDK",
+  "keywords": [
+    "stlswm",
+    "wechat",
+    "mini",
+    "program",
+    "mp"
+  ],
+  "authors": [
+    {
+      "name": "wang min",
+      "email": "stlswm@163.com",
+      "homepage": "https://www.stlswm.com"
+    }
+  ],
+  "license": "MIT",
+  "require": {
+    "php": ">=7.0",
+    "ext-json": "*",
+    "guzzlehttp/guzzle": "~6.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "stlswm\\WeChatMp\\": "src/"
+    },
+    "files": [
+    ]
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^8"
+  }
+}
