@@ -13,6 +13,9 @@ class UniformMessageTest extends TestCase
         include "../vendor/autoload.php";
         $mp = MiniProgram::instance('', '');
         $token = $mp->auth()->getAccessToken();
+        if ($token['errcode'] != 0) {
+            throw new Exception($token['errmsg']);
+        }
         $accessToken = $token['access_token'];
         $mp->uniformMessage()->send($accessToken, 'o6Y325csA_mLmI2mPdx-pbwC4I40', [], [
             'appid'       => 'wx20d32832e00108bb',
