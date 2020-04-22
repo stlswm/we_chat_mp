@@ -3,7 +3,6 @@
 namespace stlswm\WeChatMp\Auth;
 
 use Exception;
-use GuzzleHttp\Client;
 use stlswm\WeChatMp\MiniProgram;
 
 /**
@@ -40,12 +39,26 @@ class Auth
      */
     public function code2Session(string $jsCode, string $grantType = 'authorization_code'): array
     {
-        $url = 'https://api.weixin.qq.com/sns/jscode2session?appid=' . $this->miniProgram->getAppId() . '&secret=' . $this->miniProgram->getSecret()
+        $url = MiniProgram::$baseUri . '/sns/jscode2session?appid=' . $this->miniProgram->getAppId() . '&secret=' . $this->miniProgram->getSecret()
             . "&js_code={$jsCode}&grant_type={$grantType}";
-        $client = new Client([
-            'timeout' => 10,
-        ]);
-        $response = $client->get($url);
+        $response = MiniProgram::guzzleHttpClient()->get($url);
+        if ($response->getStatusCode() != 200) {
+            throw new Exception('网络请求失败：' . $response->getStatusCode());
+        }
+        $body = (string)$response->getBody();
+        return json_decode($body, TRUE);
+    }
+
+    /**
+     * 获取小程序全局唯一后台接口调用凭据（access_token）
+     *
+     * @return array
+     * @throws Exception
+     */
+    public function getAccessToken(): array
+    {
+        $url = MiniProgram::$baseUri . '/cgi-bin/token?grant_type=client_credential&appid=' . $this->miniProgram->getAppId() . '&secret=' . $this->miniProgram->getSecret();
+        $response = MiniProgram::guzzleHttpClient()->get($url);
         if ($response->getStatusCode() != 200) {
             throw new Exception('网络请求失败：' . $response->getStatusCode());
         }

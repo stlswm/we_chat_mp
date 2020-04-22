@@ -2,7 +2,9 @@
 
 namespace stlswm\WeChatMp;
 
+use GuzzleHttp\Client;
 use stlswm\WeChatMp\Auth\Auth;
+use stlswm\WeChatMp\UniformMessage\UniformMessage;
 
 /**
  * Class MiniProgram
@@ -21,10 +23,25 @@ class MiniProgram
     protected $secret;
 
     /**
+     * @var string 接口地址
+     */
+    public static $baseUri = 'https://api.weixin.qq.com';
+
+    /**
      * MiniProgram constructor.
      */
     protected function __construct()
     {
+    }
+
+    /**
+     * @return Client
+     */
+    public static function guzzleHttpClient(): Client
+    {
+        return new Client([
+            'timeout' => 10,
+        ]);
     }
 
     /**
@@ -48,8 +65,15 @@ class MiniProgram
      */
     public function auth(): Auth
     {
-        $auth = new Auth($this);
-        return $auth;
+        return new Auth($this);
+    }
+
+    /**
+     * @return UniformMessage
+     */
+    public function uniformMessage(): UniformMessage
+    {
+        return UniformMessage::newInstance($this);
     }
 
 
