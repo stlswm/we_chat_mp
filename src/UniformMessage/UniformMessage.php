@@ -13,15 +13,11 @@ use stlswm\WeChatMp\MiniProgram;
 class UniformMessage
 {
     /**
-     * @var UniformMessage $instance
-     */
-    private static $instance;
-    /**
      * @var MiniProgram
      */
     protected $miniProgram;
 
-    private function __construct(MiniProgram $miniProgram)
+    public function __construct(MiniProgram $miniProgram)
     {
         $this->miniProgram = $miniProgram;
     }
@@ -55,19 +51,5 @@ class UniformMessage
         }
         $body = (string)$response->getBody();
         return json_decode($body, TRUE);
-    }
-
-    /**
-     * @param MiniProgram $miniProgram
-     *
-     * @return UniformMessage
-     */
-    public static function newInstance(MiniProgram $miniProgram)
-    {
-        if (self::$instance) {
-            return self::$instance;
-        }
-        self::$instance = new UniformMessage($miniProgram);
-        return self::$instance;
     }
 }

@@ -4,11 +4,11 @@ namespace stlswm\WeChatMp;
 
 use GuzzleHttp\Client;
 use stlswm\WeChatMp\Auth\Auth;
+use stlswm\WeChatMp\SubscribeMessage\SubscribeMessage;
 use stlswm\WeChatMp\UniformMessage\UniformMessage;
 
 /**
  * Class MiniProgram
- *
  * @package stlswm\WeChatMp
  */
 class MiniProgram
@@ -69,18 +69,43 @@ class MiniProgram
     }
 
     /**
+     * @var UniformMessage $uniformMessageInstance
+     */
+    protected $uniformMessageInstance;
+
+    /**
      * @return UniformMessage
      */
     public function uniformMessage(): UniformMessage
     {
-        return UniformMessage::newInstance($this);
+        if ($this->uniformMessageInstance) {
+            return $this->uniformMessageInstance;
+        }
+        $this->uniformMessageInstance = new UniformMessage($this);
+        return $this->uniformMessageInstance;
+    }
+
+    /**
+     * @var SubscribeMessage $subscribeMessageInstance
+     */
+    protected $subscribeMessageInstance;
+
+    /**
+     * @return SubscribeMessage
+     */
+    public function subscribeMessage(): SubscribeMessage
+    {
+        if ($this->subscribeMessageInstance) {
+            return $this->subscribeMessageInstance;
+        }
+        $this->subscribeMessageInstance = new SubscribeMessage($this);
+        return $this->subscribeMessageInstance;
     }
 
 
     /**
-     * @param string $appId
-     * @param string $secret
-     *
+     * @param  string  $appId
+     * @param  string  $secret
      * @return MiniProgram
      */
     public static function instance(string $appId, string $secret): MiniProgram
