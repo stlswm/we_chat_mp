@@ -71,7 +71,7 @@ class MiniProgram
     /**
      * @var UniformMessage $uniformMessageInstance
      */
-    protected $uniformMessageInstance;
+    protected UniformMessage $uniformMessageInstance;
 
     /**
      * @return UniformMessage

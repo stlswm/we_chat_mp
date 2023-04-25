@@ -15,7 +15,7 @@ class UniformMessage
     /**
      * @var MiniProgram
      */
-    protected $miniProgram;
+    protected MiniProgram $miniProgram;
 
     public function __construct(MiniProgram $miniProgram)
     {
