@@ -4,6 +4,7 @@ namespace stlswm\WeChatMp;
 
 use GuzzleHttp\Client;
 use stlswm\WeChatMp\Auth\Auth;
+use stlswm\WeChatMp\Safe\TextSafe;
 use stlswm\WeChatMp\SubscribeMessage\SubscribeMessage;
 use stlswm\WeChatMp\UniformMessage\UniformMessage;
 
@@ -16,11 +17,13 @@ class MiniProgram
     /**
      * @var string
      */
-    protected $appId;
+    protected string $appId;
     /**
      * @var string
      */
-    protected $secret;
+    protected string $secret;
+
+    protected string $accessToken;
 
     /**
      * @var string 接口地址
@@ -47,7 +50,7 @@ class MiniProgram
     /**
      * @return string
      */
-    public function getAppId()
+    public function getAppId(): string
     {
         return $this->appId;
     }
@@ -55,9 +58,20 @@ class MiniProgram
     /**
      * @return string
      */
-    public function getSecret()
+    public function getSecret(): string
     {
         return $this->secret;
+    }
+
+    public function setAccessToken(string $accessToken): self
+    {
+        $this->accessToken = $accessToken;
+        return $this;
+    }
+
+    public function getAccessToken(): string
+    {
+        return $this->accessToken;
     }
 
     /**
@@ -88,7 +102,7 @@ class MiniProgram
     /**
      * @var SubscribeMessage $subscribeMessageInstance
      */
-    protected $subscribeMessageInstance;
+    protected SubscribeMessage $subscribeMessageInstance;
 
     /**
      * @return SubscribeMessage
@@ -100,6 +114,15 @@ class MiniProgram
         }
         $this->subscribeMessageInstance = new SubscribeMessage($this);
         return $this->subscribeMessageInstance;
+    }
+
+    /**
+     * 文本安全检测
+     * @return TextSafe
+     */
+    public function textSafe(): TextSafe
+    {
+        return new TextSafe($this);
     }
 
 
