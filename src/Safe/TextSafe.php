@@ -52,7 +52,6 @@ class TextSafe
             'nickname'  => $this->nickname ?? null,
             'signature' => $this->signature ?? null,
         ];
-        var_dump($data);
         $response = MiniProgram::guzzleHttpClient()->post($url, [
             "json" => $data,
         ]);
