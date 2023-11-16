@@ -10,10 +10,7 @@ use stlswm\WeChatMp\MiniProgram;
 include "../../vendor/autoload.php";
 include '../Config.php';
 
-/**
- * Class TextSafeText
- */
-class TextSafeText extends TestCase
+class MediaSafeTest extends TestCase
 {
     /**
      * @throws GuzzleException
@@ -22,11 +19,13 @@ class TextSafeText extends TestCase
     {
         $mp = MiniProgram::instance(Config::AppId, Config::Secret);
         $mp->setAccessToken(Config::AccessToken);
-        $textSafe = $mp->textSafe();
-        $textSafe->openid = Config::OpenId;
-        $textSafe->scene = 2;
-        $response = $textSafe->check('我热烈的马');
+        $mediaSafe = $mp->mediaSafe();
+        $mediaSafe->openid = Config::OpenId;
+        $mediaSafe->media_url = '';
+        $mediaSafe->media_type = 2;
+        $mediaSafe->scene = 2;
+        $response = $mediaSafe->check('我热烈的马');
         var_dump($response);
-        $this->assertEquals($response['errcode'], 0);
+        $this->assertEquals(0, $response['errcode']);
     }
 }

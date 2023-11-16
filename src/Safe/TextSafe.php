@@ -37,7 +37,7 @@ class TextSafe
     /**
      * @param  string  $content
      * @return array
-     * @throws GuzzleException
+     * @throws Exception|GuzzleException
      */
     public function check(string $content = ''): array
     {

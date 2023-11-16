@@ -4,6 +4,7 @@ namespace stlswm\WeChatMp;
 
 use GuzzleHttp\Client;
 use stlswm\WeChatMp\Auth\Auth;
+use stlswm\WeChatMp\Safe\MediaSafe;
 use stlswm\WeChatMp\Safe\TextSafe;
 use stlswm\WeChatMp\SubscribeMessage\SubscribeMessage;
 use stlswm\WeChatMp\UniformMessage\UniformMessage;
@@ -123,6 +124,15 @@ class MiniProgram
     public function textSafe(): TextSafe
     {
         return new TextSafe($this);
+    }
+
+    /**
+     * 媒体安全检测
+     * @return MediaSafe
+     */
+    public function mediaSafe(): MediaSafe
+    {
+        return new MediaSafe($this);
     }
 
 
